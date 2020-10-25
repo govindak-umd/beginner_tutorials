@@ -1,0 +1,19 @@
+Command used : cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+
+Result before fixing > 
+
+Done processing ./beginner_tutorials/src/listener.cpp
+./beginner_tutorials/src/talker.cpp:35:  Found C++ system header after other header. Should be: talker.h, c system, c++ system, other.  [build/include_order] [4]
+Done processing ./beginner_tutorials/src/talker.cpp
+Total errors found: 1
+
+
+Result after fixing > 
+
+
+cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+Done processing ./src/listener.cpp
+Done processing ./src/talker.cpp
+
+
+

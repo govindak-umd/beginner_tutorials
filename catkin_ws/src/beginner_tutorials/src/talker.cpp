@@ -24,6 +24,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#include <sstream>
 // %Tag(FULLTEXT)%
 // %Tag(ROS_HEADER)%
 #include "ros/ros.h"
@@ -31,8 +32,6 @@
 // %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
 // %EndTag(MSG_HEADER)%
-
-#include <sstream>
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
