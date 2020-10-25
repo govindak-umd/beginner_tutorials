@@ -1,2 +1,0 @@
-beginner_tutorials
--DCATKIN_DEVEL_PREFIX=/home/govind/808X/Assignments/beginner_tutorials/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/govind/808X/Assignments/beginner_tutorials/catkin_ws/install -G Unix Makefiles
