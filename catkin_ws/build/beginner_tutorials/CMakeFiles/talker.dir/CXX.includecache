@@ -7,12 +7,12 @@
 #IncludeRegexTransform: 
 
 /home/govind/808X/Assignments/beginner_tutorials/catkin_ws/src/beginner_tutorials/src/talker.cpp
+sstream
+-
 ros/ros.h
 /home/govind/808X/Assignments/beginner_tutorials/catkin_ws/src/beginner_tutorials/src/ros/ros.h
 std_msgs/String.h
 /home/govind/808X/Assignments/beginner_tutorials/catkin_ws/src/beginner_tutorials/src/std_msgs/String.h
-sstream
--
 
 /opt/ros/melodic/include/ros/advertise_options.h
 ros/forwards.h

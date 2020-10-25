@@ -2,4 +2,4 @@
 source_root_dir = '/home/govind/808X/Assignments/beginner_tutorials/catkin_ws/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/home/govind/ariac_ws/devel;/opt/ros/melodic'.split(';') if '/home/govind/ariac_ws/devel;/opt/ros/melodic' != '' else []
+underlay_workspaces = '/home/govind/808X/Assignments/beginner_tutorials/catkin_ws/devel;/home/govind/ariac_ws/devel;/opt/ros/melodic'.split(';') if '/home/govind/808X/Assignments/beginner_tutorials/catkin_ws/devel;/home/govind/ariac_ws/devel;/opt/ros/melodic' != '' else []

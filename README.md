@@ -73,6 +73,10 @@
 		$ cd ~/catkin_ws
 		$ catkin_make  
 
+## Before runningthe talker
+
+		$ roscore
+
 ## Running the publisher in a new terminal 
 
 		$ cd ~/catkin_ws
