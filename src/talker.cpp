@@ -95,6 +95,26 @@ int main(int argc, char **argv) {
   ros::Rate loop_rate(my_frequency);
 // %EndTag(LOOP_RATE)%
 
+/**
+ * Outputs varied based on the frequency or rate set by the user 
+ * in the launch file
+ */
+  if (my_frequency <= 500 && my_frequency > 0) {
+    ROS_DEBUG_STREAM("RATE OF PRINTING : " << my_frequency);
+  } else if (my_frequency > 500) {
+    ROS_ERROR_STREAM("Very Fast. Slow down! ");
+    ROS_WARN_STREAM("Dialing it down back to 100 Hz");
+    my_frequency = 100;
+  } else if (my_frequency < 0) {
+    ROS_ERROR_STREAM("Loop Rate has to be greater than 0");
+    ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
+    my_frequency = 5;
+  } else if (my_frequency == 0) {
+    ROS_FATAL_STREAM("Loop rate can't be zero. So, please change this");
+  }
+
+
+
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
