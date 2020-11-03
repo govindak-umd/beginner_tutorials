@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
     my_frequency = 5;
   } else if (my_frequency == 0) {
     ROS_FATAL_STREAM("Loop rate can't be zero. So, please change this");
-  	ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
+    ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
     my_frequency = 5;
   }
 
