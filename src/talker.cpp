@@ -35,7 +35,11 @@
 // %EndTag(MSG_HEADER)%
 #include "beginner_tutorials/changeStringService.h"
 
-std::string ouptput = "DEFAULT MESSAGE!!";
+#include "../include/talker.h"
+
+// std::string output = "DEFAULT MESSAGE!!";
+
+DefaultMessage default_message;
 
 /**
  * @brief     Callback for the service
@@ -47,7 +51,7 @@ std::string ouptput = "DEFAULT MESSAGE!!";
  */
 bool newMessage(beginner_tutorials::changeStringService::Request &req,
                 beginner_tutorials::changeStringService::Response &res) {
-  ouptput = req.inString;
+  default_message.output = req.inString;
   ROS_WARN_STREAM("USER INPUT RECEIVED: STRING CHANGED!");
   res.outString = req.inString;
   return true;
@@ -152,7 +156,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
 
-    msg.data = ouptput;
+    msg.data = default_message.output;
 // %EndTag(FILL_MESSAGE)%
 
 // %Tag(ROSCONSOLE)%

@@ -1,11 +1,12 @@
 Command Used:
 
-cppcheck --enable=all --std=c++11 $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" )
+cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" )
+
 
 Result :
 
 Checking src/listener.cpp ...
-1/2 files checked 39% done
+1/2 files checked 37% done
 Checking src/talker.cpp ...
 2/2 files checked 100% done
 
