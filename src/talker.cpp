@@ -81,8 +81,18 @@ int main(int argc, char **argv) {
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 // %EndTag(PUBLISHER)%
 
+/**
+ * The frequency at which talker publishes into the topic
+ */
+  double my_frequency;
+
+/**
+ * getting the frequency from the topic
+ */
+  n.getParam("/freq", my_frequency);
+
 // %Tag(LOOP_RATE)%
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(my_frequency);
 // %EndTag(LOOP_RATE)%
 
   /**
