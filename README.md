@@ -2,6 +2,17 @@
 
 # ROS Publisher/Subscriber
 
+## Overview
+
+This code is a demo of ROS Service.
+
+A few of the major files in this package is :
+
+talker.cpp (Publisher)
+listener.cpp (Subscriber)
+nodes_launch.launch (Launch file)
+changeStringService.srv (Service File)
+
 ## Assumptions
 		ROS Melodic
 		Ubuntu 18.04
@@ -73,7 +84,7 @@
 		$ cd ~/catkin_ws
 		$ catkin_make  
 
-## Before runningthe talker
+## Before running the talker
 
 		$ roscore
 
@@ -88,6 +99,16 @@
 		$ cd ~/catkin_ws
 		$ source ./devel/setup.bash
 		$ rosrun beginner_tutorials listener     (C++)
+
+## To launch the launch file (add the custom frequency at the end) 
+
+		$ roslaunch beginner_tutorials nodes_launch.launch freq:=5
+
+## To call the ROS Service
+		$ rosservice call /changeStringService "String to change the ROS SERVICE"
+
+## Logging using the rqt_console
+		$ rqt_console	
 
 ## To terminate
 
