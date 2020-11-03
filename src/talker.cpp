@@ -47,7 +47,7 @@ std::string ouptput = "DEFAULT MESSAGE!!";
  */
 bool newMessage(beginner_tutorials::changeStringService::Request &req,
                 beginner_tutorials::changeStringService::Response &res) {
-  ouptput  = req.inString;
+  ouptput = req.inString;
   ROS_WARN_STREAM("USER INPUT RECEIVED: STRING CHANGED!");
   res.outString = req.inString;
   return true;
@@ -98,26 +98,26 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
 // %Tag(PUBLISHER)%
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher chatter_pub = n.advertise < std_msgs::String
+      > ("chatter", 1000);
 // %EndTag(PUBLISHER)%
 
   auto server = n.advertiseService("changeStringService", newMessage);
 
-/**
- * The frequency at which talker publishes into the topic
- */
+  /**
+   * The frequency at which talker publishes into the topic
+   */
   double my_frequency;
 
-/**
- * getting the frequency from the topic
- */
+  /**
+   * getting the frequency from the topic
+   */
   n.getParam("/freq", my_frequency);
 
-
-/**
- * Outputs varied based on the frequency or rate set by the user 
- * in the launch file
- */
+  /**
+   * Outputs varied based on the frequency or rate set by the user 
+   * in the launch file
+   */
   if (my_frequency <= 500 && my_frequency > 0) {
     ROS_DEBUG_STREAM("RATE OF PRINTING : " << my_frequency);
   } else if (my_frequency > 500) {
@@ -134,11 +134,9 @@ int main(int argc, char **argv) {
     my_frequency = 5;
   }
 
-
 // %Tag(LOOP_RATE)%
   ros::Rate loop_rate(my_frequency);
 // %EndTag(LOOP_RATE)%
-
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -153,8 +151,7 @@ int main(int argc, char **argv) {
 // %Tag(FILL_MESSAGE)%
     std_msgs::String msg;
 
-    //std::stringstream ss;
-    //ss << "THIS IS A CUSTOM MESSAGE FROM GOVIND : ) " << count;
+
     msg.data = ouptput;
 // %EndTag(FILL_MESSAGE)%
 
@@ -179,7 +176,6 @@ int main(int argc, char **argv) {
 // %Tag(RATE_SLEEP)%
     loop_rate.sleep();
 // %EndTag(RATE_SLEEP)%
-    ++count;
   }
 
   return 0;
