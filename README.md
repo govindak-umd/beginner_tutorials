@@ -2,6 +2,17 @@
 
 # ROS Publisher/Subscriber
 
+## Overview
+
+This code is a demo of ROS Service.
+
+A few of the major files in this package is :
+
+talker.cpp (Publisher) </br>
+listener.cpp (Subscriber) </br>
+nodes_launch.launch (Launch file) </br>
+changeStringService.srv (Service File) </br>
+ 
 ## Assumptions
 		ROS Melodic
 		Ubuntu 18.04
@@ -47,18 +58,22 @@
 		cmake_minimum_required(VERSION 2.8.3)
 		project(beginner_tutorials)
 
-		## Find catkin and any catkin packages
-		find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg)
+		find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg message_generation)
 
-		## Declare ROS messages and services
-		#add_message_files(DIRECTORY msg FILES Num.msg)
-		#add_service_files(DIRECTORY srv FILES AddTwoInts.srv)
+		add_compile_options(-std=c++11)
 
-		## Generate added messages and services
+		##add_message_files(FILES Num.msg)
+
+		add_service_files(
+		  FILES
+		  changeStringService.srv
+		)
+
 		generate_messages(DEPENDENCIES std_msgs)
 
-		## Declare a catkin package
 		catkin_package()
+
+		include_directories(include ${catkin_INCLUDE_DIRS})
 
 		add_executable(talker src/talker.cpp)
 		target_link_libraries(talker ${catkin_LIBRARIES})
@@ -73,7 +88,7 @@
 		$ cd ~/catkin_ws
 		$ catkin_make  
 
-## Before runningthe talker
+## Before running the talker
 
 		$ roscore
 
@@ -88,6 +103,16 @@
 		$ cd ~/catkin_ws
 		$ source ./devel/setup.bash
 		$ rosrun beginner_tutorials listener     (C++)
+
+## To launch the launch file (add the custom frequency at the end) 
+
+		$ roslaunch beginner_tutorials nodes_launch.launch freq:=5
+
+## To call the ROS Service
+		$ rosservice call /changeStringService "String to change the ROS SERVICE"
+
+## Logging using the rqt_console
+		$ rqt_console	
 
 ## To terminate
 

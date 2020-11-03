@@ -1,28 +1,29 @@
-/*
- * Copyright (C) 2008, Morgan Quigley and Willow Garage, Inc.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the names of Stanford University or Willow Garage, Inc. nor the names of its
- *     contributors may be used to endorse or promote products derived from
- *     this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+/**
+ * @file talker.cpp
+ * @author Govind Ajith Kumar
+ * @copyright MIT License
+ * @brief Implementing the publisher
+ * This is the talker file for ROS subscriber-publisher example.
+ */
+
+/**
+ *MIT License
+ *Copyright (c) 2020 Govind Ajith Kumar
+ *Permission is hereby granted, free of charge, to any person obtaining a copy
+ *of this software and associated documentation files (the "Software"), to deal
+ *in the Software without restriction, including without limitation the rights
+ *to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *copies of the Software, and to permit persons to whom the Software is
+ *furnished to do so, subject to the following conditions:
+ *The above copyright notice and this permission notice shall be included in all
+ *copies or substantial portions of the Software.
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *SOFTWARE.
  */
 #include <sstream>
 // %Tag(FULLTEXT)%
@@ -32,6 +33,25 @@
 // %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
 // %EndTag(MSG_HEADER)%
+#include "beginner_tutorials/changeStringService.h"
+
+std::string ouptput = "DEFAULT MESSAGE!!";
+
+/**
+ * @brief     Callback for the service
+ *
+ * @param      req   For requesting the data sent to the service
+ * @param      res   For responding to the service
+ *
+ * @return     a boolean type of value is returned
+ */
+bool newMessage(beginner_tutorials::changeStringService::Request &req,
+                beginner_tutorials::changeStringService::Response &res) {
+  ouptput = req.inString;
+  ROS_WARN_STREAM("USER INPUT RECEIVED: STRING CHANGED!");
+  res.outString = req.inString;
+  return true;
+}
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -78,11 +98,44 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
 // %Tag(PUBLISHER)%
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher chatter_pub = n.advertise < std_msgs::String
+      > ("chatter", 1000);
 // %EndTag(PUBLISHER)%
 
+  auto server = n.advertiseService("changeStringService", newMessage);
+
+  /**
+   * The frequency at which talker publishes into the topic
+   */
+  double my_frequency;
+
+  /**
+   * getting the frequency from the topic
+   */
+  n.getParam("/freq", my_frequency);
+
+  /**
+   * Outputs varied based on the frequency or rate set by the user 
+   * in the launch file
+   */
+  if (my_frequency <= 500 && my_frequency > 0) {
+    ROS_DEBUG_STREAM("RATE OF PRINTING : " << my_frequency);
+  } else if (my_frequency > 500) {
+    ROS_ERROR_STREAM("Very Fast. Slow down! ");
+    ROS_WARN_STREAM("Dialing it down back to 100 Hz");
+    my_frequency = 100;
+  } else if (my_frequency < 0) {
+    ROS_ERROR_STREAM("Loop Rate has to be greater than 0");
+    ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
+    my_frequency = 5;
+  } else if (my_frequency == 0) {
+    ROS_FATAL_STREAM("Loop rate can't be zero. So, please change this");
+    ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
+    my_frequency = 5;
+  }
+
 // %Tag(LOOP_RATE)%
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(my_frequency);
 // %EndTag(LOOP_RATE)%
 
   /**
@@ -90,7 +143,6 @@ int main(int argc, char **argv) {
    * a unique string for each message.
    */
 // %Tag(ROS_OK)%
-  int count = 0;
   while (ros::ok()) {
 // %EndTag(ROS_OK)%
     /**
@@ -99,9 +151,8 @@ int main(int argc, char **argv) {
 // %Tag(FILL_MESSAGE)%
     std_msgs::String msg;
 
-    std::stringstream ss;
-    ss << "THIS IS A CUSTOM MESSAGE FROM GOVIND : ) " << count;
-    msg.data = ss.str();
+
+    msg.data = ouptput;
 // %EndTag(FILL_MESSAGE)%
 
 // %Tag(ROSCONSOLE)%
@@ -125,7 +176,6 @@ int main(int argc, char **argv) {
 // %Tag(RATE_SLEEP)%
     loop_rate.sleep();
 // %EndTag(RATE_SLEEP)%
-    ++count;
   }
 
   return 0;
