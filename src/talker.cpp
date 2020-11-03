@@ -33,6 +33,25 @@
 // %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
 // %EndTag(MSG_HEADER)%
+#include "beginner_tutorials/changeStringService.h"
+
+std::string ouptput = "DEFAULT MESSAGE!!";
+
+/**
+ * @brief     Callback for the service
+ *
+ * @param      req   For requesting the data sent to the service
+ * @param      res   For responding to the service
+ *
+ * @return     a boolean type of value is returned
+ */
+bool newMessage(beginner_tutorials::changeStringService::Request &req,
+                beginner_tutorials::changeStringService::Response &res) {
+  ouptput  = req.inString;
+  ROS_WARN_STREAM("USER INPUT RECEIVED: STRING CHANGED!");
+  res.outString = req.inString;
+  return true;
+}
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -81,6 +100,8 @@ int main(int argc, char **argv) {
 // %Tag(PUBLISHER)%
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 // %EndTag(PUBLISHER)%
+
+  auto server = n.advertiseService("changeStringService", newMessage);
 
 /**
  * The frequency at which talker publishes into the topic
@@ -133,13 +154,13 @@ int main(int argc, char **argv) {
 // %Tag(FILL_MESSAGE)%
     std_msgs::String msg;
 
-    std::stringstream ss;
-    ss << "THIS IS A CUSTOM MESSAGE FROM GOVIND : ) " << count;
-    msg.data = ss.str();
+    //std::stringstream ss;
+    //ss << "THIS IS A CUSTOM MESSAGE FROM GOVIND : ) " << count;
+    msg.data = ouptput;
 // %EndTag(FILL_MESSAGE)%
 
 // %Tag(ROSCONSOLE)%
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO("%s", msg.data);
 // %EndTag(ROSCONSOLE)%
 
     /**
