@@ -13,7 +13,7 @@ add_compile_options(-std=c++11)
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  changeBaseString.srv
+  changeStringService.srv
 )
 ## Generate added messages and services
 generate_messages(DEPENDENCIES std_msgs)
