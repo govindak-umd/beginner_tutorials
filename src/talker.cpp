@@ -91,9 +91,6 @@ int main(int argc, char **argv) {
  */
   n.getParam("/freq", my_frequency);
 
-// %Tag(LOOP_RATE)%
-  ros::Rate loop_rate(my_frequency);
-// %EndTag(LOOP_RATE)%
 
 /**
  * Outputs varied based on the frequency or rate set by the user 
@@ -111,8 +108,14 @@ int main(int argc, char **argv) {
     my_frequency = 5;
   } else if (my_frequency == 0) {
     ROS_FATAL_STREAM("Loop rate can't be zero. So, please change this");
+  	ROS_WARN_STREAM("Reverting back to a positive minimum loop frequency");
+    my_frequency = 5;
   }
 
+
+// %Tag(LOOP_RATE)%
+  ros::Rate loop_rate(my_frequency);
+// %EndTag(LOOP_RATE)%
 
 
   /**
