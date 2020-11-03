@@ -145,7 +145,6 @@ int main(int argc, char **argv) {
    * a unique string for each message.
    */
 // %Tag(ROS_OK)%
-  int count = 0;
   while (ros::ok()) {
 // %EndTag(ROS_OK)%
     /**
