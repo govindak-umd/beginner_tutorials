@@ -93,6 +93,10 @@ changeStringService.srv (Service File) </br>
 ## To display and save the rqt_tf_tree as a pdf
 		$ rosrun tf view_frames
 
+## TO view the tf frames and check the tf tree
+		$ rosrun tf tf_echo /world /talk
+		$ rosrun rqt_tf_tree rqt_tf_tree
+
 ## Recoridng a rosbag
 		$ rosbag record -a
 
