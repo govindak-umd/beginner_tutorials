@@ -99,6 +99,18 @@ changeStringService.srv (Service File) </br>
 ## Playing back the rosbag
 		$ rosbag play <your bag file>
 
+## Verifying if rosbag is working correctly
+
+Open a terminal and run the listener node
+
+		$ rosrun <package_name> listener 
+
+Go to the results folder and run the rosbag
+
+		$ rosbag play <your bag file>
+
+Ensure the changes are happening in the terminal where the listener runs
+
 ## To terminate
 
 		press Ctrl-C to terminate both the listener and the talker
