@@ -117,6 +117,9 @@ changeStringService.srv (Service File) </br>
 ## Logging using the rqt_console
 		$ rqt_console	
 
+## To display and save the rqt_tf_tree as a pdf
+		$ rosrun tf view_frames
+
 ## To terminate
 
 		press Ctrl-C to terminate both the listener and the talker
