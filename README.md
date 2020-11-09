@@ -7,7 +7,7 @@
 Govind Ajith Kumar
 ## Overview
 
-This code is a demo of ROS Service.
+This code is a demo of ROS Bags and tf.
 
 A few of the major files in this package is :
 
