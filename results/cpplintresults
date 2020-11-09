@@ -5,8 +5,8 @@ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^.
 Results:
 
 Done processing ./src/listener.cpp
-./src/talker.cpp:52:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeStringService::Request &req  [runtime/references] [2]
-./src/talker.cpp:53:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeStringService::Response &res  [runtime/references] [2]
+./src/talker.cpp:45:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeStringService::Request &req  [runtime/references] [2]
+./src/talker.cpp:46:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeStringService::Response &res  [runtime/references] [2]
 Done processing ./src/talker.cpp
 Total errors found: 2
 

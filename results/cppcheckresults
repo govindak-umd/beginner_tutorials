@@ -6,7 +6,7 @@ cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $(
 Result :
 
 Checking src/listener.cpp ...
-1/2 files checked 37% done
+1/2 files checked 35% done
 Checking src/talker.cpp ...
 2/2 files checked 100% done
 

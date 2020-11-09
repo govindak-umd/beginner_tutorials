@@ -55,22 +55,23 @@ bool newMessage(beginner_tutorials::changeStringService::Request &req,
  * @param  none
  * @return none
  */
-void tfBroadcaster(){
-    static tf::TransformBroadcaster br;
-    tf::Transform transform;
-    transform.setOrigin(tf::Vector3(cos(ros::Time::now().toSec()),
-                                    sin(ros::Time::now().toSec()), 0.0));
-    tf::Quaternion q;
-    q.setRPY(0, 0, 1);
-    transform.setRotation(q);
-    br.sendTransform(tf::StampedTransform(transform,
-                                          ros::Time::now(), "world", "talk"));
+
+void tfBroadcaster() {
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
+  transform.setOrigin(
+      tf::Vector3(cos(ros::Time::now().toSec()), sin(ros::Time::now().toSec()),
+                  0.0));
+  tf::Quaternion q;
+  q.setRPY(0, 0, 1);
+  transform.setRotation(q);
+  br.sendTransform(
+      tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 }
 
-
 /**
-* This tutorial demonstrates simple sending of messages over the ROS system.
-*/
+ * This tutorial demonstrates simple sending of messages over the ROS system.
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -146,29 +147,23 @@ int main(int argc, char **argv) {
     my_frequency = 5;
   }
 
-
   ros::Rate loop_rate(my_frequency);
 
-    /**
-     * A count of how many messages we have sent. This is used to create
-     * a unique string for each message.
-    */
+  /**
+   * A count of how many messages we have sent. This is used to create
+   * a unique string for each message.
+   */
 
   while (ros::ok()) {
-
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
 
     std_msgs::String msg;
 
-
     msg.data = default_message.output;
 
-
-
     ROS_INFO("%s", msg.data.c_str());
-
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -179,18 +174,16 @@ int main(int argc, char **argv) {
 
     chatter_pub.publish(msg);
 
-
-    // Calling the Broadcaster Function to broadcast a tf frame called /talk with parent /world
+    /**
+     Calling the Broadcaster Function to broadcast a tf frame 
+     called /talk with parent /world
+     */
     tfBroadcaster();
-
 
     ros::spinOnce();
 
-
     loop_rate.sleep();
-
   }
 
   return 0;
 }
-
