@@ -12,6 +12,7 @@ add_service_files(
   FILES
   changeStringService.srv
 )
+
 ## Generate added messages and services
 generate_messages(DEPENDENCIES std_msgs)
 
