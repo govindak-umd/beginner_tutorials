@@ -2,7 +2,7 @@
 
 # ROS Publisher/Subscriber
 
- - Make sure to make changes to CMakeLists.txt and package.xml as needed.
+ - Be sure to make changes to CMakeLists.txt and package.xml as needed.
 
 ## Author
 
