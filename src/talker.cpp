@@ -25,19 +25,12 @@
  *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *SOFTWARE.
  */
+#include <tf/transform_broadcaster.h>
 #include <sstream>
-// %Tag(FULLTEXT)%
-// %Tag(ROS_HEADER)%
 #include "ros/ros.h"
-// %EndTag(ROS_HEADER)%
-// %Tag(MSG_HEADER)%
 #include "std_msgs/String.h"
-// %EndTag(MSG_HEADER)%
 #include "beginner_tutorials/changeStringService.h"
-
 #include "../include/talker.h"
-
-// std::string output = "DEFAULT MESSAGE!!";
 
 DefaultMessage default_message;
 
@@ -58,8 +51,26 @@ bool newMessage(beginner_tutorials::changeStringService::Request &req,
 }
 
 /**
- * This tutorial demonstrates simple sending of messages over the ROS system.
+ * @brief  Broadcaster Function to broadcast tf frame
+ * @param  none
+ * @return none
  */
+void tfBroadcaster(){
+    static tf::TransformBroadcaster br;
+    tf::Transform transform;
+    transform.setOrigin(tf::Vector3(cos(ros::Time::now().toSec()),
+                                    sin(ros::Time::now().toSec()), 0.0));
+    tf::Quaternion q;
+    q.setRPY(0, 0, 1);
+    transform.setRotation(q);
+    br.sendTransform(tf::StampedTransform(transform,
+                                          ros::Time::now(), "world", "talk"));
+}
+
+
+/**
+* This tutorial demonstrates simple sending of messages over the ROS system.
+*/
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -71,18 +82,16 @@ int main(int argc, char **argv) {
    * You must call one of the versions of ros::init() before using any other
    * part of the ROS system.
    */
-// %Tag(INIT)%
+
   ros::init(argc, argv, "talker");
-// %EndTag(INIT)%
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
    * The first NodeHandle constructed will fully initialize this node, and the last
    * NodeHandle destructed will close down the node.
    */
-// %Tag(NODEHANDLE)%
+
   ros::NodeHandle n;
-// %EndTag(NODEHANDLE)%
 
   /**
    * The advertise() function is how you tell ROS that you want to
@@ -101,10 +110,9 @@ int main(int argc, char **argv) {
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-// %Tag(PUBLISHER)%
+
   ros::Publisher chatter_pub = n.advertise < std_msgs::String
       > ("chatter", 1000);
-// %EndTag(PUBLISHER)%
 
   auto server = n.advertiseService("changeStringService", newMessage);
 
@@ -138,30 +146,29 @@ int main(int argc, char **argv) {
     my_frequency = 5;
   }
 
-// %Tag(LOOP_RATE)%
-  ros::Rate loop_rate(my_frequency);
-// %EndTag(LOOP_RATE)%
 
-  /**
-   * A count of how many messages we have sent. This is used to create
-   * a unique string for each message.
-   */
-// %Tag(ROS_OK)%
+  ros::Rate loop_rate(my_frequency);
+
+    /**
+     * A count of how many messages we have sent. This is used to create
+     * a unique string for each message.
+    */
+
   while (ros::ok()) {
-// %EndTag(ROS_OK)%
+
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-// %Tag(FILL_MESSAGE)%
+
     std_msgs::String msg;
 
 
     msg.data = default_message.output;
-// %EndTag(FILL_MESSAGE)%
 
-// %Tag(ROSCONSOLE)%
+
+
     ROS_INFO("%s", msg.data.c_str());
-// %EndTag(ROSCONSOLE)%
+
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -169,19 +176,21 @@ int main(int argc, char **argv) {
      * given as a template parameter to the advertise<>() call, as was done
      * in the constructor above.
      */
-// %Tag(PUBLISH)%
+
     chatter_pub.publish(msg);
-// %EndTag(PUBLISH)%
 
-// %Tag(SPINONCE)%
+
+    // Calling the Broadcaster Function to broadcast a tf frame called /talk with parent /world
+    tfBroadcaster();
+
+
     ros::spinOnce();
-// %EndTag(SPINONCE)%
 
-// %Tag(RATE_SLEEP)%
+
     loop_rate.sleep();
-// %EndTag(RATE_SLEEP)%
+
   }
 
   return 0;
 }
-// %EndTag(FULLTEXT)%
+
