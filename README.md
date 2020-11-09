@@ -120,6 +120,12 @@ changeStringService.srv (Service File) </br>
 ## To display and save the rqt_tf_tree as a pdf
 		$ rosrun tf view_frames
 
+## Recoridng a rosbag
+		$ rosbag record -a
+
+## Playing back the rosbag
+		$ rosbag play <your bag file>
+
 ## To terminate
 
 		press Ctrl-C to terminate both the listener and the talker
