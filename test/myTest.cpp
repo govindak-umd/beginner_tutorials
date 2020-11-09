@@ -30,6 +30,8 @@
 #include "beginner_tutorials/changeStringService.h"
 #include "std_msgs/String.h"
 
+std::shared_ptr<ros::NodeHandle> nh;
+
 /**
  * @brief     Tests whether the changeBaseString service can modify the output message
  * @param     testTalkerNode       talker node
@@ -64,10 +66,11 @@ TEST(testTalker, stringChange) {
  * @return     0 in default case
  */
 
-int main(int argc, char **argv) {
+int main(int argc,
+         char **argv) {
+  ros::init(argc, argv, "myTest");
+  nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
-  ros::init(argc, argv, "changeStringService");
-  ros::NodeHandle nh;
   return RUN_ALL_TESTS();
 }
 

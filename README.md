@@ -111,13 +111,24 @@ Go to the results folder and run the rosbag
 
 Ensure the changes are happening in the terminal where the listener runs
 
+## To verify the test
+
+		$ catkin_make tests
+		$ catkin_make test
+
+ - The result will look as follows
+
+<p align="center">
+  <img height="500" src="results/test_results.png">
+</p>
+
 ## To terminate
 
 		press Ctrl-C to terminate both the listener and the talker
 
 ## Running cpp-check
 
-		$ cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./src/")
+		$ cppcheck --enable=all --std=c++11 -I include/ test/ src/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./src/")
 
 ## Running cpp-lint
 
