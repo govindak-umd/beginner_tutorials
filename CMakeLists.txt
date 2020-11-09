@@ -7,9 +7,6 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy tf std_msgs genmsg message_
 ## Adding for C++11 Compatibility
 add_compile_options(-std=c++11)
 
-## Declare ROS messages and services
-##add_message_files(FILES Num.msg)
-
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
