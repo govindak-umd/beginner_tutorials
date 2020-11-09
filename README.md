@@ -117,9 +117,17 @@ Ensure the changes are happening in the terminal where the listener runs
 
 ## Running cpp-check
 
-		cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./src/")
+		$ cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./src/")
 
 ## Running cpp-lint
 
-		cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+		$ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+
+## Creating tags from the command line
+
+Do the following steps to create a tag for your release
+
+		$ git tag <tagname>
+		$ git git push origin --tags
+	
 
