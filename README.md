@@ -12,7 +12,7 @@ Govind Ajith Kumar
 
 This code is a demo of ROS Bags and tf.
 
-A few of the major files in this package is :
+A few of the major files in this package are:
 
 talker.cpp (Publisher) </br>
 listener.cpp (Subscriber) </br>
